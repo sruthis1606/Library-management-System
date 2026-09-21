@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f5f7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            padding: 38px;
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 38px;
+            font-size: 40px;
+            color: #222;
+        }
+
+        .add-button {
+            display: inline-block;
+            background-color: #087ff5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 20px;
+            margin-bottom: 24px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #066dcc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .actions a {
+            color: #0000ee;
+            margin-right: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Add Book Form */
+
+        #addBookForm {
+            display: none;
+            background-color: #f8f8f8;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        #addBookForm h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .save-btn {
+            background-color: #087ff5;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cancel-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Library Management System</h1>
+
+    <button class="add-button" onclick="showForm()">
+        + Add New Book
+    </button>
+
+    <!-- Add Book Form -->
+
+    <div id="addBookForm">
+
+        <h2>Add New Book</h2>
+
+        <label>Title</label>
+        <input type="text" id="title" placeholder="Enter book title">
+
+        <label>Author</label>
+        <input type="text" id="author" placeholder="Enter author name">
+
+        <label>Price</label>
+        <input type="number" id="price" placeholder="Enter price">
+
+        <button class="save-btn" onclick="addBook()">
+            Save Book
+        </button>
+
+        <button class="cancel-btn" onclick="hideForm()">
+            Cancel
+        </button>
+
+    </div>
+
+
+    <!-- Books Table -->
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="bookTable">
+
+            <tr>
+                <td>1</td>
+                <td>Harry Potter</td>
+                <td>J.K. Rowling</td>
+                <td>450.0</td>
+
+                <td class="actions">
+                    <a href="#" onclick="viewBook(1)">View</a>
+                    <a href="#" onclick="editBook(1)">Edit</a>
+                    <button class="delete-btn" onclick="deleteBook(1)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>The Alchemist</td>
+                <td>Paulo Coelho</td>
+                <td>399.0</td>
+
+                <td class="actions">
+                    <a href="#" onclick="viewBook(2)">View</a>
+                    <a href="#" onclick="editBook(2)">Edit</a>
+                    <button class="delete-btn" onclick="deleteBook(2)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>rhythm</td>
+                <td>J.K. Rowling</td>
+                <td>570.0</td>
+
+                <td class="actions">
+                    <a href="#" onclick="viewBook(3)">View</a>
+                    <a href="#" onclick="editBook(3)">Edit</a>
+                    <button class="delete-btn" onclick="deleteBook(3)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    function showForm() {
+        document.getElementById("addBookForm").style.display = "block";
+    }
+
+    function hideForm() {
+        document.getElementById("addBookForm").style.display = "none";
+    }
+
+
+    function addBook() {
+
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let price = document.getElementById("price").value;
+
+        if (title === "" || author === "" || price === "") {
+            alert("Please fill all fields");
+            return;
+        }
+
+        alert(
+            "Book Added!\n\n" +
+            "Title: " + title +
+            "\nAuthor: " + author +
+            "\nPrice: " + price
+        );
+
+        hideForm();
+
+        document.getElementById("title").value = "";
+        document.getElementById("author").value = "";
+        document.getElementById("price").value = "";
+    }
+
+
+    function viewBook(id) {
+        alert("Viewing Book ID: " + id);
+    }
+
+
+    function editBook(id) {
+        alert("Editing Book ID: " + id);
+    }
+
+
+    function deleteBook(id) {
+
+        if (confirm("Are you sure you want to delete Book ID " + id + "?")) {
+            alert("Book deleted successfully!");
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

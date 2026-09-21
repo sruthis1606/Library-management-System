@@ -16,6 +16,7 @@ public class Author {
     private Long id;
 
     private String name;
+
     private String email;
 
     @Column(length = 1000)
